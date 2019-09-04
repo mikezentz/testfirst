@@ -23,5 +23,7 @@ describe("auth.routes.js", () => {
       .send(validUser);
 
     expect(response.status).to.equal(200);
+    expect(response.username).to.equal(validUser.username);
+    expect(response.password).to.equal(undefined);
   });
 });
