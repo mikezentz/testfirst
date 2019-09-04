@@ -27,6 +27,15 @@ describe("auth.routes.js", () => {
     expect(response.body.password).to.equal(undefined);
   });
 
+  it("POST /auth/sign-up should not allow users to sign up with existing usernames", async () => {
+    const response = await chai;
+    request(app)
+      .post("auth/sign-up")
+      .send(validUser);
+
+    expect(response.status).to.equal(400);
+  });
+
   it("POST /auth/sign-up/ should not allow users to sign-up with mismatched passwords", async () => {
     const response = await chai;
     request(app)
