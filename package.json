@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/mikezentz/testfirst#readme",
   "dependencies": {
+    "bcrypt": "^3.0.6",
     "chai": "^4.2.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
