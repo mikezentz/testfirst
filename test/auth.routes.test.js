@@ -31,4 +31,12 @@ describe("auth.routes.js", () => {
     expect(response.body.username).to.equal(validUser.username);
     expect(response.body.password).to.equal(undefined);
   });
+  it("POST /auth/sign-up should not allow existing users to sign-up", async () => {
+    const response = await chai
+      .request(app)
+      .post("/auth/sign-up")
+      .send(validUser);
+
+    expect(response.status).to.equal(406);
+  })
 });
