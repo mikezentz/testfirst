@@ -4,7 +4,7 @@ const morgan = require("morgan");
 const mongoose = require("mongoose");
 
 const app = express();
-
+const auth_route = require("./routes/auth");
 app.use(express.json());
 app.use(cors());
 if(process.env.ENV !== "test") app.use(morgan("tiny"));

@@ -12,6 +12,7 @@ const User = require("../models/User");
 
 const route = AsyncRouter();
 
+
 const signUpValidators = [
   check("username").exists().isLength({
     min: 4,
@@ -65,3 +66,6 @@ route.post("/auth/sign-up") async (req, res) => {
         res.status(400).send(error.message);
     }
 }
+module.export = {
+  route
+};
