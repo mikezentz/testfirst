@@ -66,8 +66,6 @@ route.post("/sign-up", async (req, res) => {
     return res.status(406)
   }
 
-
-
   const hashedPassword = bcrypt.hashSync(password, 10);
   const user = new User({
     username: username,

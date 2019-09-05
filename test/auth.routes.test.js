@@ -39,4 +39,12 @@ describe("auth.routes.js", () => {
 
     expect(response.status).to.equal(406);
   })
+  it("POST /auth/sign-up should not allow mismatched passwords", async () => {
+    const response = await chai
+      .request(app)
+      .post("/auth/sign-up")
+      .send(invalidUser);
+
+    expect(response.status).to.equal(400)
+  })
 });
