@@ -58,6 +58,16 @@ route.post("/sign-up", async (req, res) => {
     });
     return;
   }
+  const userFound = await User.findOne({
+    username
+  })
+
+  if (userFound){
+    return res.status(406)
+  }
+  
+
+  }
   const hashedPassword = bcrypt.hashSync(password, 10);
   const user = new User({
     username: username,
