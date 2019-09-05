@@ -39,7 +39,7 @@ const loginValidators = [
   }),
 ];
 
-route.post("/auth/sign-up") async (req, res) => {
+route.post("/auth/sign-up", async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(422).send({ errors: errors.array() });
