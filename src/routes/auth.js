@@ -39,48 +39,46 @@ const loginValidators = [
   }),
 ];
 
-route.post("/sign-up") async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(422).send({
-      errors: errors.array()
-    });
+route.post("/sign-up", async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(422).send({
+        errors: errors.array()
+      });
 
-  }
-  const {
-    username,
-    password,
-    passwordConfirm
-  } = req.body;
-  if (password !== passwordConfirm) {
-    res.send(400).send({
-      error: `password does not match!`
-    });
-    return;
-  }
-  const hashedPassword = bcrypt.hashSync(password, 10);
-  const user = new User({
-    username: username,
-    pasword: hashedPassword,
-  });
-  try {
-    await user.save();
-    res.send({
-      ...user._doc,
-      password: undefined,
-    });
-
-<<<<<<< HEAD
-  } catch (error) {
-    res.status(400).send(error.message);
-  }
-}
-=======
-    } catch(error) {
-        res.status(400).send(error.message);
     }
+    const {
+      username,
+      password,
+      passwordConfirm
+    } = req.body;
+    if (password !== passwordConfirm) {
+      res.send(400).send({
+        error: `password does not match!`
+      });
+      return;
+    }
+    const hashedPassword = bcrypt.hashSync(password, 10);
+    const user = new User({
+      username: username,
+      pasword: hashedPassword,
+    });
+    try {
+      await user.save();
+      res.send({
+        ...user._doc,
+        password: undefined,
+      });
+
+    } catch (error) {
+      res.status(400).send(error.message);
+    }
+  }
 }
+catch (error) {
+  res.status(400).send(error.message);
+}
+
 module.export = {
   route
 };
->>>>>>> 0690886101f72a3d06f74fe1a7ec9459b19a58b0
