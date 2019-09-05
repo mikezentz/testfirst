@@ -39,6 +39,7 @@ const loginValidators = [
 ];
 
 route.post("/signup") async (req, res) => {
+<<<<<<< HEAD
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(422).send({
@@ -47,4 +48,31 @@ route.post("/signup") async (req, res) => {
 
   }
 
+=======
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(422).send({ errors: errors.array() });
+
+    }
+    const { username, password, passwordConfirm } = req.body;
+    if(password !== passwordConfirm){
+        res.send(400).send({error : `password does not match!`});
+        return;
+    }
+    const hashedPassword = bcrypt.hashSync(password, 10);
+    const user = new User({
+        username: username,
+        pasword: hashedPassword,
+    });
+    try {
+        await user.save();
+        res.send({
+            ...user._doc,
+            password: undefined,
+        });
+
+    } catch(error) {
+        res.status(400).send(error.message);
+    }
+>>>>>>> e99cfdaecdbb88f4973654c777ccf0f7e48bff5e
 }
