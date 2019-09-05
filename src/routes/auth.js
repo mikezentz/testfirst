@@ -22,7 +22,7 @@ const signUpValidators = [
     min: 8,
     max: 64
   }),
-  check("passwordConfirm").exist().isLength({
+  check("passwordCheck").exist().isLength({
     min: 8,
     max: 64
   }),
@@ -44,28 +44,35 @@ route.post("/auth/sign-up", async (req, res) => {
     if (!errors.isEmpty()) {
         return res.status(422).send({ errors: errors.array() });
 
-    }
-    const { username, password, passwordConfirm } = req.body;
-    if(password !== passwordConfirm){
-        res.send(400).send({error : `password does not match!`});
-        return;
-    }
-    const hashedPassword = bcrypt.hashSync(password, 10);
-    const user = new User({
-        username: username,
-        pasword: hashedPassword,
+  }
+  const {
+    username,
+    password,
+    passwordConfirm
+  } = req.body;
+  if (password !== passwordConfirm) {
+    res.send(400).send({
+      error: `password does not match!`
     });
-    try {
-        await user.save();
-        res.send({
-            ...user._doc,
-            password: undefined,
-        });
+    return;
+  }
+  const hashedPassword = bcrypt.hashSync(password, 10);
+  const user = new User({
+    username: username,
+    password: hashedPassword,
+  });
+  try {
+    await user.save();
+    res.send({
+      ...user._doc,
+      password: undefined,
+    });
 
-    } catch(error) {
-        res.status(400).send(error.message);
-    }
-}
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+});
+
 module.export = {
   route
 };
