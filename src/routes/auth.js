@@ -1,6 +1,11 @@
-const { AsyncRouter } = require("express-async-router");
+const {
+  AsyncRouter
+} = require("express-async-router");
 const bcrypt = require("bcrypt");
-const { check, validationResult } = require("express-validator");
+const {
+  check,
+  validationResult
+} = require("express-validator");
 const jwt = require("jsonwebtoken");
 
 const User = require("../models/User");
@@ -8,20 +13,38 @@ const User = require("../models/User");
 const route = AsyncRouter();
 
 const signUpValidators = [
-    check("username").exists().isLength({min: 4, max: 32}),
-    check("password").exists().isLength({min: 8, max:64}),
-    check("passwordConfirm").exist().isLength({min: 8, max:64}),
+  check("username").exists().isLength({
+    min: 4,
+    max: 32
+  }),
+  check("password").exists().isLength({
+    min: 8,
+    max: 64
+  }),
+  check("passwordConfirm").exist().isLength({
+    min: 8,
+    max: 64
+  }),
 ];
 
 const loginValidators = [
-    check("username").exists().isLength({min: 4, max: 32}),
-    check("password").exists().isLength({min: 8, max: 64}),  
+  check("username").exists().isLength({
+    min: 4,
+    max: 32
+  }),
+  check("password").exists().isLength({
+    min: 8,
+    max: 64
+  }),
 ];
 
 route.post("/signup") async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(422).send({ errors: errors.array() });
-        
-    }
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    return res.status(422).send({
+      errors: errors.array()
+    });
+
+  }
+
 }
