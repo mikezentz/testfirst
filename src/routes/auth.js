@@ -13,31 +13,31 @@ const User = require("../models/User");
 const route = AsyncRouter();
 
 
-const signUpValidators = [
-  check("username").exists().isLength({
-    min: 4,
-    max: 32
-  }),
-  check("password").exists().isLength({
-    min: 8,
-    max: 64
-  }),
-  check("passwordConfirm").exist().isLength({
-    min: 8,
-    max: 64
-  }),
-];
-
-const loginValidators = [
-  check("username").exists().isLength({
-    min: 4,
-    max: 32
-  }),
-  check("password").exists().isLength({
-    min: 8,
-    max: 64
-  }),
-];
+// const signUpValidators = [
+//   check("username").exists().isLength({
+//     min: 4,
+//     max: 32
+//   }),
+//   check("password").exists().isLength({
+//     min: 8,
+//     max: 64
+//   }),
+//   check("passwordConfirm").exist().isLength({
+//     min: 8,
+//     max: 64
+//   }),
+// ];
+//
+// const loginValidators = [
+//   check("username").exists().isLength({
+//     min: 4,
+//     max: 32
+//   }),
+//   check("password").exists().isLength({
+//     min: 8,
+//     max: 64
+//   }),
+// ];
 
 route.post("/sign-up", async (req, res) => {
   const errors = validationResult(req);
@@ -50,9 +50,9 @@ route.post("/sign-up", async (req, res) => {
   const {
     username,
     password,
-    passwordConfirm
+    passwordCheck
   } = req.body;
-  if (password !== passwordConfirm) {
+  if (password !== passwordCheck) {
     res.send(400).send({
       error: `password does not match!`
     });
@@ -75,6 +75,4 @@ route.post("/sign-up", async (req, res) => {
   }
 });
 
-module.export = {
-  route
-};
+module.exports = route;
