@@ -1,7 +1,12 @@
 const chai = require("chai");
-const {expect} = chai;
+const {
+  expect
+} = chai;
 const jwt = require("jsonwebtoken");
-const {app} = require("../src/server");
+const {
+  app
+} = require("../src/server");
+
 
 const validUser = {
   username: "validuser",
@@ -17,8 +22,8 @@ const invalidUser = {
 
 describe("auth.routes.js", () => {
   it("POST /auth/sign-up should allow users to sign-up", async () => {
-    const response = await chai;
-    request(app)
+    const response = await chai
+      .request(app)
       .post("/auth/sign-up")
       .send(validUser);
 
@@ -26,5 +31,4 @@ describe("auth.routes.js", () => {
     expect(response.body.username).to.equal(validUser.username);
     expect(response.body.password).to.equal(undefined);
   });
-  it("POST /auth/sign-up");
 });
