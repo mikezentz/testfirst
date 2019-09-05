@@ -39,16 +39,6 @@ const loginValidators = [
 ];
 
 route.post("/signup") async (req, res) => {
-<<<<<<< HEAD
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(422).send({
-      errors: errors.array()
-    });
-
-  }
-
-=======
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(422).send({ errors: errors.array() });
@@ -74,5 +64,4 @@ route.post("/signup") async (req, res) => {
     } catch(error) {
         res.status(400).send(error.message);
     }
->>>>>>> e99cfdaecdbb88f4973654c777ccf0f7e48bff5e
 }
