@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "nyc --reporter=html --reporter=text mocha ./test/**/*.test.js --require=./test/test-helper.js --exit --timeout=10000"
   },
   "repository": {
     "type": "git",
@@ -20,12 +20,14 @@
   },
   "homepage": "https://github.com/mikezentz/testfirst#readme",
   "dependencies": {
+    "bcrypt": "^3.0.6",
     "chai": "^4.2.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mocha": "^6.2.0",
     "mongoose": "^5.6.12",
-    "morgan": "^1.9.1"
+    "morgan": "^1.9.1",
+    "nyc": "^14.1.1"
   }
 }
