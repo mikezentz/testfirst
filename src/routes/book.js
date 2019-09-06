@@ -17,8 +17,16 @@ const createValidators = [
 
 // List
 route.get("/list", async (req, res) => {
+
   const books = await Book.find();
   res.send(books);
+});
+
+route.post("")
+
+
+const books = await Book.find();
+res.send(books);
 });
 
 module.exports = route
