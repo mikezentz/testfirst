@@ -8,9 +8,15 @@ const {
 } = require("../src/server");
 const User = require("../src/models/User");
 const Book = require("../src/models/Book");
+const bookGen = require("../src/helpers/createbooks")
 
 describe("book.routes.js", () => {
   before(async function() {
+    const validUser = {
+      username: "validuser",
+      password: "validpassword",
+      passwordCheck: "validpassword"
+    };
     const signupUser = await chai
       .request(app)
       .post("/auth/sign-up")
@@ -19,7 +25,14 @@ describe("book.routes.js", () => {
       .request(app)
       .post("/auth/login")
       .send(validUser)
-    const this.token = loginUser.body.token
+    const token = loginUser.body.token
+    await bookGen(100000000)
+  })
+
+  it("Can we make books", async () => {
+    const books = await Book.find()
+    console.log(books)
+    expect(books).to.exist
   })
 
   it("GET /books/list should return a JSON object of all available books", async () => {

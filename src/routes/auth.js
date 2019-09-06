@@ -30,7 +30,7 @@ route.post("/sign-up", async (req, res) => {
     passwordCheck
   } = req.body;
   if (password !== passwordCheck) {
-    res.send(400).send({
+    res.status(400).send({
       error: `password does not match!`
     });
     return;
@@ -40,7 +40,7 @@ route.post("/sign-up", async (req, res) => {
   })
 
   if (userFound) {
-    return res.status(406)
+    return res.sendStatus(406)
   }
 
   const hashedPassword = bcrypt.hashSync(password, 10);
