@@ -50,7 +50,6 @@ describe("book.routes.js", () => {
   })
 
   it("POST /books/checkout should not allow a book to be checked out twice", async function() {
-    this.book = await Book.findOne({})
     const response = await chai
       .request(app)
       .post("/books/checkout")

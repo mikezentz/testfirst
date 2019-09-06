@@ -27,11 +27,12 @@ route.post("/checkout", jwtMiddleware, async (req, res) => {
   const book = await Book.findOne({
     _id: req.body.id
   })
-  book.user = req.user._id
-  if (!book.user == null){
-      res.status(403).send("book is currently unavailable")
-      
+
+  if (book.user) {
+    res.status(403).send("book is currently unavailable")
+    return
   }
+  book.user = req.user._id
 
   try {
     await book.save();
