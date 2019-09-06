@@ -6,6 +6,7 @@ const jwt = require("jsonwebtoken");
 const {
   app
 } = require("../src/server");
+const User = require("../src/models/User");
 
 
 const validUser = {
@@ -46,5 +47,45 @@ describe("auth.routes.js", () => {
       .send(invalidUser);
 
     expect(response.status).to.equal(400)
+  })
+  it("POST /auth/login should allow a valid user to login", async () => {
+    const response = await chai
+      .request(app)
+      .post("/auth/login")
+      .send(validUser)
+
+    const {
+      username
+    } = validUser
+    const user = await User.findOne({
+      username
+    })
+    const sanitizeUser = (user) => ({
+      ...user.toJSON(),
+      password: undefined,
+    })
+    const token = jwt.sign(sanitizeUser(user), "SecretSecret", {
+      expiresIn: "2 days"
+    })
+    expect(response.body.token).to.eq(token)
+  })
+  it("POST /auth/login should deny nonexistent users", async () => {
+    const response = await chai
+      .request(app)
+      .post("/auth/login")
+      .send(invalidUser)
+
+    expect(response.status).to.eq(403)
+  })
+  it("POST /auth/login should not allow incorrect passwords", async () => {
+    const response = await chai
+      .request(app)
+      .post("/auth/login")
+      .send({
+        username: "validuser",
+        password: "invalidpassword"
+      })
+
+    expect(response.status).to.eq(403)
   })
 });
