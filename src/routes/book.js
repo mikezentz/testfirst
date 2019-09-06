@@ -4,15 +4,17 @@ const { check, validationResult } = require("express-validator");
 const jwtMiddleware = require("../middleware/jwt");
 const Book = require("../models/Book");
 
-const router = AsyncRouter();
+const route = AsyncRouter();
 const createValidators = [
     check("name").exists(),
     check("user").exists()
 ];
 
 // List
-router.get("/list", async (req, res) => {
+route.get("/list", async (req, res) => {
     const books = await Book.find();
     res.send(books);
 });
+
+route.post("")
 
