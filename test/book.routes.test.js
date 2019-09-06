@@ -26,7 +26,7 @@ describe("book.routes.js", () => {
       .post("/auth/login")
       .send(validUser)
     const token = loginUser.body.token
-    await bookGen(100)
+    await bookGen(3)
   })
 
   it("GET /books/list should return a JSON object of all available books", async () => {
