@@ -11,6 +11,7 @@ const bookGen = async (count) => {
     });
 
     try {
+      console.log(book)
       await book.save();
     } catch (error) {
       console.log(error)

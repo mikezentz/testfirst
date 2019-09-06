@@ -26,13 +26,7 @@ describe("book.routes.js", () => {
       .post("/auth/login")
       .send(validUser)
     const token = loginUser.body.token
-    await bookGen(100000000)
-  })
-
-  it("Can we make books", async () => {
-    const books = await Book.find()
-    console.log(books)
-    expect(books).to.exist
+    await bookGen(100)
   })
 
   it("GET /books/list should return a JSON object of all available books", async () => {
