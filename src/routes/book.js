@@ -28,6 +28,10 @@ route.post("/checkout", jwtMiddleware, async (req, res) => {
     _id: req.body.id
   })
   book.user = req.user._id
+  if (!book.user == null){
+      res.status(403).send("book is currently unavailable")
+      
+  }
 
   try {
     await book.save();
