@@ -22,11 +22,22 @@ route.get("/list", async (req, res) => {
   res.send(books);
 });
 
-route.post("")
+route.post("/checkout", jwtMiddleware, async (req, res) => {
 
+  const book = await Book.findOne({
+    _id: req.body.id
+  })
+  book.user = req.user._id
 
-const books = await Book.find();
-res.send(books);
-});
+  try {
+    await book.save();
+    res.status(200).send(
+      book
+    )
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
+
+})
 
 module.exports = route
