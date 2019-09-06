@@ -37,22 +37,23 @@ route.post("/checkout", jwtMiddleware, async (req, res) => {
   } catch (error) {
     res.status(400).send(error.message);
   }
+})
 
-  route.post("/return", jwtMiddleware, async (req, res) => {
+route.post("/return", jwtMiddleware, async (req, res) => {
 
-    const book = await Book.findOne({
-      _id: req.body.id
-    })
-    book.user = null
-  
-    try {
-      await book.save();
-      res.status(200).send(
-        book
-      )
-    } catch (error) {
-      res.status(400).send(error.message);
-    }
+  const book = await Book.findOne({
+    _id: req.body.id
+  })
+  book.user = null
+
+  try {
+    await book.save();
+    res.status(200).send(
+      book
+    )
+  } catch (error) {
+    res.status(400).send(error.message);
+  }
 })
 
 module.exports = route

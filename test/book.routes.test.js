@@ -37,17 +37,27 @@ describe("book.routes.js", () => {
     expect(response.body).to.exist
   })
 
-  it("POST /books/checkout should allow an authenticated to checkout a book", async function() {
-    const book = await Book.findOne({})
+  it("POST /books/checkout should allow an authenticated user to checkout a book", async function() {
+    this.book = await Book.findOne({})
     const response = await chai
       .request(app)
       .post("/books/checkout")
       .set("Authorization", `Bearer ${this.user.token}`)
       .send({
-        id: book._id
+        id: this.book._id
       })
-    expect(response.body.title).to.equal(book.title)
+    expect(response.body.title).to.equal(this.book.title)
+  })
 
-
+  it("POST /books/return should allow an authenticated user to return a book", async function() {
+    const response = await chai
+      .request(app)
+      .post("/books/return")
+      .set("Authorization", `Bearer ${this.user.token}`)
+      .send({
+        id: this.book._id
+      })
+    console.log(response.body)
+    expect(response.body.title).to.equal(this.book.title)
   })
 })
