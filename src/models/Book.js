@@ -18,8 +18,8 @@ const bookSchema = Schema({
     type: Date,
   },
   user: {
-    type: ObjectId,
-    ref: "User",
+    type: String,
+
   }
 })
 const Book = mongoose.model("Book", bookSchema);

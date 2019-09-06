@@ -25,7 +25,7 @@ describe("book.routes.js", () => {
       .request(app)
       .post("/auth/login")
       .send(validUser)
-    const token = loginUser.body.token
+    this.token = loginUser.body.token
     await bookGen(3)
   })
 
@@ -36,5 +36,17 @@ describe("book.routes.js", () => {
 
     expect(response.body).to.exist
     console.log(response.body)
+  })
+
+  it("POST /books/checkout should allow an authenticated to checkout a book", async function() {
+    const book = await Book.findOne({})
+    const response = await chai
+      .request(app)
+      .set("Authorization", `Bearer ${this.token}`)
+      .post("/books/checkout")
+      .send({
+        id: book._id
+      })
+
   })
 })
