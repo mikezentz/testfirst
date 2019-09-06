@@ -49,6 +49,18 @@ describe("book.routes.js", () => {
     expect(response.body.title).to.equal(this.book.title)
   })
 
+  it("POST /books/checkout should not allow a book to be checked out twice", async function() {
+    this.book = await Book.findOne({})
+    const response = await chai
+      .request(app)
+      .post("/books/checkout")
+      .set("Authorization", `Bearer ${this.user.token}`)
+      .send({
+        id: this.book._id
+      })
+    expect(response.status).to.equal(403)
+  })
+
   it("POST /books/return should allow an authenticated user to return a book", async function() {
     const response = await chai
       .request(app)

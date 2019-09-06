@@ -9,7 +9,6 @@ Check-out book
   Can't check-out books if they are checked out
 Return Book
 
-
 User Model
 username
 password
