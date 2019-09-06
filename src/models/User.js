@@ -12,6 +12,18 @@ const userSchema = Schema({
     type: String,
     required: true,
   }
+}, {
+  toJSON: {
+    virtuals: true
+  }
 })
+
+userSchema.virtual("books", {
+  ref: "Book",
+  localField: "_id",
+  foreignField: "user",
+  justOne: false,
+})
+
 const User = mongoose.model("User", userSchema);
 module.exports = User;
