@@ -87,16 +87,16 @@ describe("book.routes.js", () => {
     expect(response.status).to.equal(200)
   })
 
-  it("PATCH /books/edit should allow admins to modify books", async function() {
-    const response = await chai
-      .request(app)
-      .post("/books/edit")
-      .set("Authorization", `Bearer ${this.user.token}`)
-      .send({
-        title: "Modified Title",
-        available: false,
-      })
-
-    expect(response.status).to.equal(200)
-  })
+  // it("PATCH /books/edit should allow admins to modify books", async function() {
+  //   const response = await chai
+  //     .request(app)
+  //     .post("/books/edit")
+  //     .set("Authorization", `Bearer ${this.user.token}`)
+  //     .send({
+  //       title: "Modified Title",
+  //       available: false,
+  //     })
+  //
+  //   expect(response.status).to.equal(200)
+  // })
 })
