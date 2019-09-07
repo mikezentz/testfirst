@@ -22,6 +22,8 @@ describe("book.routes.js", () => {
       .request(app)
       .post("/auth/sign-up")
       .send(validUser);
+
+    console.log("Signed up user ", signupUser.body)
     const loginUser = await chai
       .request(app)
       .post("/auth/login")
@@ -69,7 +71,7 @@ describe("book.routes.js", () => {
       .send({
         id: this.book._id
       })
-    console.log(response.body)
+
     expect(response.body.title).to.equal(this.book.title)
   })
 

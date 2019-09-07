@@ -17,19 +17,16 @@ const sanitizeUser = (user) => ({
   password: undefined,
 })
 route.post("/sign-up", async (req, res) => {
-  const errors = validationResult(req);
-  if (!errors.isEmpty()) {
-    return res.status(422).send({
-      errors: errors.array()
-    });
 
-  }
   const {
     username,
     password,
     passwordCheck,
     admin
   } = req.body;
+
+  console.log("the request " + admin, req.body)
+
   if (password !== passwordCheck) {
     res.status(400).send({
       error: `password does not match!`
@@ -50,6 +47,8 @@ route.post("/sign-up", async (req, res) => {
     password: hashedPassword,
     admin: admin
   });
+
+  console.log("prior to save ", user, admin)
   try {
     await user.save();
     res.send({

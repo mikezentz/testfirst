@@ -59,13 +59,15 @@ route.post("/return", jwtMiddleware, async (req, res) => {
     res.status(400).send(error.message);
   }
 })
-route.post("/invoke", jwtMiddleware, async (req, res) =>{
-   if (!req.user.admin){
-       res.sendStatus(403);
-   }
-   
-   const book = new Book({
-    title: res.body.title,
+route.post("/invoke", jwtMiddleware, async (req, res) => {
+
+  if (!req.user.admin) {
+    console.log(req.user.admin)
+    return res.sendStatus(403);
+  }
+
+  const book = new Book({
+    title: req.body.title,
   });
   try {
     await book.save();

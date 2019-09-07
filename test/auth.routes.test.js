@@ -22,6 +22,9 @@ const invalidUser = {
 };
 
 describe("auth.routes.js", () => {
+  after(async () => {
+    await User.deleteMany({})
+  })
   it("POST /auth/sign-up should allow users to sign-up", async () => {
     const response = await chai
       .request(app)
