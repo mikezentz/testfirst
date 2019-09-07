@@ -10,10 +10,10 @@ const jwtMiddleware = require("../middleware/jwt");
 const Book = require("../models/Book");
 
 const route = AsyncRouter();
-const createValidators = [
-  check("name").exists(),
-  check("user").exists()
-];
+// const createValidators = [
+//   check("name").exists(),
+//   check("user").exists()
+// ];
 
 // List
 route.get("/list", async (req, res) => {

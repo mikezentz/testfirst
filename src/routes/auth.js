@@ -27,7 +27,8 @@ route.post("/sign-up", async (req, res) => {
   const {
     username,
     password,
-    passwordCheck
+    passwordCheck,
+    admin
   } = req.body;
   if (password !== passwordCheck) {
     res.status(400).send({
@@ -47,6 +48,7 @@ route.post("/sign-up", async (req, res) => {
   const user = new User({
     username: username,
     password: hashedPassword,
+    admin: admin
   });
   try {
     await user.save();
