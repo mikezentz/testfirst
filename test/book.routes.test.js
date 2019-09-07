@@ -15,7 +15,8 @@ describe("book.routes.js", () => {
     const validUser = {
       username: "validuser",
       password: "validpassword",
-      passwordCheck: "validpassword"
+      passwordCheck: "validpassword",
+      admin: true
     };
     const signupUser = await chai
       .request(app)
@@ -70,5 +71,17 @@ describe("book.routes.js", () => {
       })
     console.log(response.body)
     expect(response.body.title).to.equal(this.book.title)
+  })
+
+  it("POST /books/invoke should allow admins to create new books", async function() {
+    const response = await chai
+      .request(app)
+      .post("/books/invoke")
+      .set("Authorization", `Bearer ${this.user.token}`)
+      .send({
+        title: "Test Title"
+      })
+
+    expect(response.status).to.equal(200)
   })
 })
