@@ -17,7 +17,6 @@ const createValidators = [
 
 // List
 route.get("/list", async (req, res) => {
-
   const books = await Book.find();
   res.send(books);
 });
@@ -60,5 +59,19 @@ route.post("/return", jwtMiddleware, async (req, res) => {
     res.status(400).send(error.message);
   }
 })
+route.post("/invoke", jwtMiddleware, async (req, res) =>{
+   if (!req.user.admin){
+       res.sendStatus(403);
+   }
+   
+   const book = new Book({
+    title: res.body.title,
+  });
+  try {
+    await book.save();
+  } catch (error) {
+    console.log(error)
+  }
+});
 
 module.exports = route
